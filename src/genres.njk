@@ -1,0 +1,21 @@
+---
+layout: default
+title: Genre List
+permalink: "genres/index.html"
+eleventyComputed:
+    title: "Pick Your Favorite Music Genre"
+    description: "Pick your favorite genre and find artists to test your music knowledge."
+    featuredLocalImage: "/assets/img/trivia-farm.jpg"
+---
+
+<h1 class="text-3xl leading-normal font-bold mt-0 mb-7 text-center">{{ title }}</h1>
+<div class="flex justify-center flex-wrap">
+    {% for name, length in collections.genreList %}
+      {% if length > 1 %}
+        <a href="{{ '/genre/' | url }}{{ name | slugNormalize }}/" class="inline-block mx-1 mb-3 px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-full">
+            {{ name | genreTitle }}
+            <span class="px-2 py-1 ml-1 text-xs font-semibold bg-teal-300 text-teal-800 rounded-full">{{ length }}</span>
+        </a>
+      {% endif %}
+    {% endfor %}
+</div>

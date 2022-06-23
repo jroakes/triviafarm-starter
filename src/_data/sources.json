@@ -1,0 +1,17 @@
+[
+    {
+        "label": "Deezer",
+        "url": "https://deezer.com/",
+        "newTab": true
+    },
+    {
+        "label": "AudioDB",
+        "url": "https://www.theaudiodb.com/",
+        "newTab": true
+    },
+    {
+        "label": "MusicBrainz",
+        "url": "https://musicbrainz.org/",
+        "newTab": true
+    }
+]

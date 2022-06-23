@@ -1,0 +1,26 @@
+{% for post in paged.posts %}
+<div class="w-full sm:w-1/2 md:w-1/3 self-stretch p-2 mb-2">
+    <div class="rounded shadow-md h-full overflow-hidden">
+        <div class="overflow-hidden h-[16rem]">
+          <a href="{{ post.url | url }}" >
+              {% if post.data.featuredImageURL %}
+                {% imageElement post.data.featuredImageURL, post.data.featuredImageAlt %}
+              {% endif %}
+          </a>
+        </div>
+        <div class="px-6 py-5">
+            <div class="font-semibold text-lg mb-2">
+                <a class="text-gray-900 hover:text-gray-700" href="{{ post.url | url }}">{{ post.data.name }}</a>
+            </div>
+            <p class="text-secondary mb-1" title="Artist's Record Label">{{ post.data.label | capitalize }}</p>
+            <p class="text-gray-800">
+                {% if post.data.biography %}
+                {{ post.data.biography | striptags | truncate(90, true) }}
+                {% else %}
+                {{ post.templateContent | striptags | truncate(90, true) }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+{% endfor %}

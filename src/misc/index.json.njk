@@ -1,0 +1,12 @@
+---
+permalink: "/index.json"
+---
+[
+    {% for post in collections.trivia %}
+    {
+        "url": "{{ post.url | url }}",
+        "title": "{{ post.data.title }}",
+        "image": "{{post.data.featuredLocalImage}}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+]

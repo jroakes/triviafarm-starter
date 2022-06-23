@@ -1,0 +1,20 @@
+---
+layout: default
+pagination:
+    data: collections.pagedPosts
+    size: 1
+    alias: paged
+permalink: "articles/{% if paged.number > 1 %}page/{{ paged.number }}/{% endif %}index.html"
+eleventyComputed:
+    title: "Featured Articles"
+    description: "Random whatnot from the farm."
+    featuredLocalImage: "/assets/img/trivia-farm.jpg"
+---
+
+<div class="flex flex-wrap -mx-2">
+    {% include "partials/post-grid.njk" %}
+</div>
+
+{% if collections.posts.length > site.paginate %}
+{% include "partials/paginator.njk" %}
+{% endif %}

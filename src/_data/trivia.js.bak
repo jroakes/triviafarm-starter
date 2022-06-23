@@ -1,0 +1,15 @@
+const fs = require('fs');
+const path = require('path')
+
+module.exports = () => {
+
+  const jsondata = Array.from(fs.readdirSync('src/trivia_data'))
+                    .filter(file => path.extname(file) === '.json')
+                    .map(file => {
+                      let fileData = fs.readFileSync(path.join('src/trivia_data', file));
+                      let json = JSON.parse(fileData.toString());
+                      return json
+                      });
+
+  return jsondata;
+};

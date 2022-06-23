@@ -1,0 +1,67 @@
+---
+layout: default
+
+---
+
+<article class="max-w-5xl mx-auto">
+    <header class="mb-14 text-center">
+        <h1 class="text-3xl text-center font-bold leading-normal text-gray-900 mt-0 mb-3">{{ name }}</h1>
+        {% if featuredImageURL %}
+          <div class="mt-10 w-2/3 overflow-hidden mx-auto rounded max-h-[40rem]">
+              {% imageElement featuredImageURL, featuredImageAlt, false %}
+          </div>
+
+          <div class="w-2/3 overflow-hidden mx-auto ">
+            <div class="collapse">
+              <input id="attribution" type="checkbox" />
+              <label for="attribution" >Attribution</label>
+              <div class="collapse-title text-sm text-secondary font-light w-2/3 mx-auto">
+                Attribution
+              </div>
+              <div class="collapse-content mx-auto">
+                <div class="citation prose text-left text-xs bg-slate-100 rounded p-4 prose-ul:hidden">
+                  {{ featuredImageAttribution | safe }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+    </header>
+    <div id="content" class="prose text-gray-800 max-w-none">
+
+      <div id="biography" class="w-full">
+        <h2 class="text-2xl text-center font-bold leading-normal text-gray-700 mt-0 mb-3">Biography</h2>
+        <input name="bioPeer" type="checkbox" class="peer hidden">
+        <div class="prose text-gray-800 max-w-none line-clamp-4 peer-checked:h-full peer-checked:line-clamp-none overflow-hidden">
+          {{ biography | safe}}
+        </div>
+        <div class="w-full text-center my-4">
+          <button id="expandBio" class="btn btn-xs btn-outline btn-primary">Show More</button>
+        </div>
+      </div>
+
+      <div id="details" class="w-full mt-16">
+        <h2 class="text-2xl text-center font-bold leading-normal text-gray-700 mt-0 mb-3">Details</h2>
+        {% include "partials/trivia-details.njk" %}
+      </div>
+
+      {% if genres %}
+        <div id="genres" class="w-full mt-16 prose-a:no-underline">
+          <h2 class="text-2xl text-center font-bold leading-normal text-gray-700 mt-0 mb-3">Genres</h2>
+            <div class="mt-3 text-center">
+              {% for genre in genres %}
+              <a href="{{ '/genre/' | url }}{{ genre | slugNormalize }}/" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-medium text-gray-700 m-0.5">{{ genre | genreTitle }}</a>
+              {% endfor %}
+            </div>
+        </div>
+      {% endif %}
+
+      <div id="questions" class="w-full mt-16 prose-a:no-underline prose-em:font-bold prose-em:text-secondary">
+        <h2 class="text-2xl text-center font-bold leading-normal text-gray-700 mt-0 mb-3">Trivia</h2>
+        {% include "partials/trivia-questions.njk" %}
+      </div>
+
+
+    </div>
+
+</article>

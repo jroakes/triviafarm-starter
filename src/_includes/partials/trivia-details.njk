@@ -1,0 +1,43 @@
+<div class="overflow-x-auto">
+  <table class="table table-zebra w-full">
+    <!-- head -->
+    <thead>
+      <tr class="font-bold text-center">
+        <th>Item Name</th>
+        <th>Item Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Year Formed</td>
+        <td>{{year_formed}}</td>
+      </tr>
+      <tr>
+        <td>Number of Albums</td>
+        <td>{{number_of_albums}}</td>
+      </tr>
+      <tr>
+        <td>Record Label</td>
+        <td>{{label}}</td>
+      </tr>
+      <tr>
+        <td>Website</td>
+        <td>{% if websiteURL %}
+            <a href="{{websiteURL}}" target="_blank" rel="nofollow noopener">{{website}}</a>
+            {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td>Wikipedia</td>
+        <td>{% if wikipedia %}
+            <a href="{{wikipedia}}" target="_blank" rel="nofollow noopener">{{name}} on Wikipedia</a>
+            {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td>Social Networks</td>
+        <td>{% include "partials/trivia-social.njk" %}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

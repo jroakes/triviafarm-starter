@@ -1,0 +1,69 @@
+---
+layout: default
+title: Home Page
+permalink: "/index.html"
+eleventyComputed:
+    title: "Welcome to the Farm!"
+    description: "Pick your favorite genre and find artists to test your music knowledge"
+    featuredLocalImage: "/assets/img/trivia-farm.jpg"
+---
+
+<article class="max-w-5xl mx-auto">
+    <header class="mb-14 text-center">
+        <h1 class="text-3xl text-center font-bold leading-normal text-gray-900 mt-0 mb-3">Welcome to the Farm</h1>
+          <div class="mt-10 w-2/3 overflow-hidden mx-auto rounded max-h-[40rem]">
+              {% imageElement "https://trivia.farm/assets/img/trivia-farm.jpg", "Trivia Farm", false %}
+          </div>
+          <p class="prose mt-8 mx-auto">Pick a featured artist, or scroll down and select your favorite by genre.  Each artist has questions and answers you have probably never seen before.  They are curated from the web by our robot farm hands.  Have fun! </p>
+    </header>
+    <div class="divider w-full"></div>
+    <div id="content" class="prose text-gray-800 max-w-none">
+      <div id="topTrivia" class="w-full mt-16 prose-a:no-underline">
+        <h2 class="text-2xl text-center font-bold leading-normal text-gray-700 mt-0 mb-3">Top Artists</h2>
+        <div class="flex flex-wrap -mx-2">
+          {% for post in collections.topTrivia.slice(0,6) %}
+            <div class="w-full sm:w-1/2 md:w-1/3 self-stretch p-2 mb-2">
+                <div class="rounded shadow-md h-full overflow-hidden">
+                    <div class="overflow-hidden h-[16rem]">
+                      <a href="{{ post.url | url }}" >
+                          {% if post.data.featuredImageURL %}
+                            {% imageElement post.data.featuredImageURL, post.data.featuredImageAlt %}
+                          {% endif %}
+                      </a>
+                    </div>
+                    <div class="px-6 py-5">
+                        <div class="font-semibold text-lg mb-2">
+                            <a class="text-gray-900 hover:text-gray-700" href="{{ post.url | url }}">{{ post.data.name }}</a>
+                        </div>
+                        <p class="text-secondary mb-1" title="Artist's Record Label">{{ post.data.label | capitalize }}</p>
+                        <p class="text-gray-800">
+                            {% if post.data.biography %}
+                            {{ post.data.biography | striptags | truncate(90, true) }}
+                            {% else %}
+                            {{ post.templateContent | striptags | truncate(90, true) }}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div id="genres" class="w-full mt-16 prose-a:no-underline">
+        <h2 class="text-2xl text-center font-bold leading-normal text-gray-700 mt-0 mb-3">Genres</h2>
+        <div class="flex justify-center flex-wrap">
+            {% for name, length in collections.genreList %}
+              {% if length > 1 %}
+                <a href="{{ '/genre/' | url }}{{ name | slugNormalize }}/" class="inline-block mx-1 mb-3 px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-full">
+                    {{ name | genreTitle }}
+                    <span class="px-2 py-1 ml-1 text-xs font-semibold bg-teal-300 text-teal-800 rounded-full">{{ length }}</span>
+                </a>
+              {% endif %}
+            {% endfor %}
+        </div>
+      </div>
+
+    </div>
+
+</article>

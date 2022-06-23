@@ -1,0 +1,81 @@
+{%- set metaTitle -%}
+    {%- if not title and not name -%}{{ site.title }} - {{ site.description | safe }}
+    {%- elif title -%}{{ title | safe }} | {{ site.title }}
+    {%- else -%}{{ name | safe }} | {{ site.title }}
+    {%- endif -%}
+{%- endset -%}
+{%- set metaDesc -%}
+    {%- if not description -%}{{ site.description | safe }}
+    {%- else -%}{{ description | safe }}
+    {%- endif -%}
+{%- endset -%}
+{%- set metaKeywords -%}
+    {%- if tags -%}{%- for tag in tags -%}{{ tag }},{%- endfor -%}{%- endif -%}
+    {%- if genres -%}{%- for tag in tags -%}{{ genre }},{%- endfor -%}{%- endif -%}
+    {%- if site.keywords -%}
+        {%- for keyword in site.keywords -%}
+            {{ keyword }}{%- if not loop.last %},{% endif -%}
+        {%- endfor -%}
+    {%- endif -%}
+{%- endset -%}
+<!DOCTYPE html>
+<html lang="en" style="font-size: 16px">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="manifest" href="/manifest.json">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#581CF4"/>
+    <title>{{ metaTitle }}</title>
+    <meta name="title" content="{{ metaTitle }}">
+    <meta name="description" content="{{ metaDesc }}">
+    <meta name="keywords" content="{{ metaKeywords }}">
+    <meta name="author" content="{{ author.name }}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ site.url | url }}{{ page.url }}">
+    <link rel="shortcut icon" type="image/png" href="{{ '/assets/img/favicon.ico' | url }}">
+    <link rel="apple-touch-icon" href="{{ '/assets/img/apple-touch-icon.png' | url }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}">
+    {% include "partials/headMeta.njk" %}
+    {% if faqPageSchema %}
+      {{ faqPageSchema | safe }}
+    {% endif %}
+
+    <script>
+      if ("serviceWorker" in navigator){
+        navigator.serviceWorker.register("/sw.js");
+        }
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true; j.defer=true; j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T2ZDZFW');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body class="flex flex-col h-screen bg-white text-gray-800 break-words">
+    {% include "partials/header.njk" %}
+    <main class="mx-7 lg:mx-6 mt-32 flex-grow">
+        {% if layout === "post" %}
+        {{ content | safe }}
+        {% else %}
+        <div class="max-w-5xl mx-auto">
+            {{ content | safe }}
+        </div>
+        {% endif %}
+    </main>
+    {% include "partials/footer.njk" %}
+    <script src="{{ '/assets/js/bundle.js' | url }}"></script>
+</body>
+
+</html>

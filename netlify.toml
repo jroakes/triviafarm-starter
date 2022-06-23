@@ -1,0 +1,8 @@
+[build]
+    publish = "dist"
+    command = "npm run netlify"
+
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/assets/img/favicon.ico"
+  status = 301

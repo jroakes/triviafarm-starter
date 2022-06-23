@@ -1,0 +1,24 @@
+---
+layout: default
+pagination:
+    data: collections.pagedTriviaByGenre
+    size: 1
+    alias: paged
+permalink: "genre/{{ paged.genreName | slugNormalize }}/{% if paged.number > 1 %}{{ paged.number }}/{% endif %}index.html"
+eleventyComputed:
+    title: "Music Genre: {{ paged.genreName | genreTitle }}"
+    description: "Pick your favorite {{ paged.genreName }} artist to test your music knowledge."
+    featuredLocalImage: "/assets/img/trivia-farm.jpg"
+---
+
+<div class="mb-8 text-center">
+    <h3 class="text-xl font-medium text-gray-700 my-0">Genre</h3>
+    <h1 class="text-4xl font-medium leading-normal mt-0">{{ paged.genreName | genreTitle }}</h1>
+</div>
+<div class="flex flex-wrap -mx-2">
+    {% include "partials/post-grid-trivia.njk" %}
+</div>
+
+{% if collections.genreList[paged.genreName] > site.paginate %}
+{% include "partials/paginator.njk" %}
+{% endif %}
